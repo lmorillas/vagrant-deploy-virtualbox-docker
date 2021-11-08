@@ -2,30 +2,19 @@ version: '3.3'
 
 services:
   db:
-    image: mysql:5.7
-    volumes:
-      - db_data:/var/lib/mysql
+    image: 'postgres:latest'
     restart: always
+    #volumes:
+    #  - './postgres_data:/var/lib/postgresql/data'
     environment:
-      MYSQL_ROOT_PASSWORD: 'somewordpress'
-      MYSQL_DATABASE: 'wordpress'
-      MYSQL_USER: 'wordpress'
-      MYSQL_PASSWORD: 'wordpress'
-
-  wordpress:
-    depends_on:
-      - db
-    image: wordpress:latest
-    volumes:
-      - wordpress_data:/var/www/html
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=mi_db
     ports:
-      - '8000:80'
+      - '5432:5432'
+
+  adminer:
+    image: adminer
     restart: always
-    environment:
-      WORDPRESS_DB_HOST: db:3306
-      WORDPRESS_DB_USER: 'wordpress'
-      WORDPRESS_DB_PASSWORD: 'wordpress'
-      WORDPRESS_DB_NAME: 'wordpress'
-volumes:
-  db_data: {}
-  wordpress_data: {}
+    ports:
+      - 8080:8080

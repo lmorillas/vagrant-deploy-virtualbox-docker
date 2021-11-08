@@ -14,7 +14,9 @@ Vagrant.configure("2") do |config|
   # boxes at https://vagrantcloud.com/search.
   #config.vm.box = "base"
   config.vm.box = "bento/ubuntu-20.04"
-  config.vm.network :forwarded_port, host: 8000, guest: 8000
+  config.vm.network :forwarded_port, host: 8080, guest: 8080
+  config.vm.network :forwarded_port, host: 5432 , guest: 5432
+
   # require plugin https://github.com/leighmcculloch/vagrant-docker-compose
   config.vagrant.plugins = "vagrant-docker-compose"
   # install docker and docker-compose
